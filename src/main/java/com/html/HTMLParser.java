@@ -49,7 +49,8 @@ public class HTMLParser {
     }
 
     public static Document getDocument(String url) throws IOException {
-        Document doc = Jsoup.connect(url).get();
+        Document doc = Jsoup.connect(url).userAgent("Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)").timeout(2000)
+                .get();
         return doc;
     }
 

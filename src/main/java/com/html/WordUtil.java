@@ -33,11 +33,11 @@ public class WordUtil {
             if (StringUtils.isNotBlank(type)) {
                 subFolder = type + "/";
             }
-            File dir = new File("D:/教案/" + subFolder);
+            File dir = new File("E:/教案/" + subFolder);
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            File f = new File("D:/教案/" + subFolder + "/" + title + ".doc");
+            File f = new File("E:/教案/" + subFolder + "/" + title + ".doc");
             if (!f.exists()) {
                 f.createNewFile();
             }

@@ -83,8 +83,11 @@ class Consumer implements Runnable {
             Element baseElem = doc.select("div").get(2).select("tr").get(1).select("td").get(0);
             String title = baseElem.select("p").get(1).text().trim();
             Elements content = baseElem.select("table").select("tr").get(1).select("p");
-            String html = content.html().replaceAll("<strong>", "<strong><br/>").replaceAll("</strong>", "</strong><br/>");
-            WordUtil.convertToWord(html, title, type);
+            if (content.size() > 0) {
+                String html = content.html().replaceAll("<strong>", "<strong><br/>")
+                        .replaceAll("</strong>", "</strong><br/>");
+                WordUtil.convertToWord(html, title, type);
+            }
         } catch (IOException e) {
             System.out.println("解析教案详情失败");
         }

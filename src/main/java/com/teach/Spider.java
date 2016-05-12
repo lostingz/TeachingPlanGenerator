@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -30,7 +31,7 @@ import com.html.WordUtil;
  */
 class Constants {
     public static final int MAX_BUFFER_SIZE = 20;
-    public static final int NUM_OF_PRODUCER = 8;
+    public static final int NUM_OF_PRODUCER = 5;
     public static final int NUM_OF_CONSUMER = 8;
 }
 
@@ -87,6 +88,15 @@ class Consumer implements Runnable {
                 String html = content.html().replaceAll("<strong>", "<strong><br/>")
                         .replaceAll("</strong>", "</strong><br/>");
                 WordUtil.convertToWord(html, title, type);
+
+            } else {
+                String html = baseElem.select("center").select("table tbody").select("tr").get(1).select("div:gt(1)")
+                        .html()
+                        .replaceAll("<strong>", "<strong><br/>")
+                        .replaceAll("</strong>", "</strong><br/>");
+                if (!StringUtil.isBlank(html)) {
+                    WordUtil.convertToWord(html, title, type);
+                }
             }
         } catch (IOException e) {
             System.out.println("解析教案详情失败");
